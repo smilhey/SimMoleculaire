@@ -99,28 +99,6 @@ def estimateur_AMS(X0, M, h, epsilon, debug=False):
 
     return p_estim
 
-def T12_naif(X0, epsilon, h, N):
-    E = 0
-    global x1
-    global x2
-    sigma = np.sqrt(2*epsilon*h)
-
-    for _ in range(N):
-        Xn = X0
-        t1 = 0
-        t2 = 0
-        while Xn >= x1 and Xn <= x2:
-            Xn = Xn - Vprime(Xn)*h + sigma*np.random.randn()
-            t1 += h
-        if Xn > x2:
-            t2 = t1
-            while Xn >= x1 and Xn <= x2:
-                Xn = Xn - Vprime(Xn)*h + sigma*np.random.randn()
-                t2 += h
-            E += t2 - t1
-
-    return E/N
-
 if __name__ == '__main__':
     """
     epsilons = [0.1*i for i in range(1, 5)]
